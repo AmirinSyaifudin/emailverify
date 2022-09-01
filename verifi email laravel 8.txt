@@ -1,0 +1,59 @@
+
+
+
+akun emailverify laravel8.3
+
+
+
+
+password = miepjwmyledwncvl
+
+1.
+.env
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USERNAME=amirinsyaifudin6@gmail.com
+MAIL_PASSWORD=miepjwmyledwncvl
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS=amirinsyaifudin6@gmail.com 
+MAIL_FROM_NAME="Bisabos"
+
+2.
+web.php 
+ Auth::routes(['verify' => true]);
+
+3.
+HomeController.php 
+ public function __construct()
+    {
+        $this->middleware(['auth','verified']);
+        // $this->middleware('auth');
+    }
+
+
+4.
+User.php 
+class User extends Authenticatable implements MustVerifyEmail
+
+5.
+folder
+config
+mail.php
+
+ 'mailers' => [
+        'smtp' => [
+            'transport' => 'smtp',
+            'host' => env('MAIL_HOST', 'smtp.gmail.com'),
+            'port' => env('MAIL_PORT', 587),
+            'encryption' => env('MAIL_ENCRYPTION', 'tls'),
+            'username' => env('MAIL_USERNAME'),
+            'password' => env('MAIL_PASSWORD'),
+            'timeout' => null,
+            'auth_mode' => null,
+        ],
+
+   'from' => [
+        'address' => env('MAIL_FROM_ADDRESS', 'amirinsyaifudin6@gmail.com'),
+        'name' => env('MAIL_FROM_NAME', 'Bisabos'),
+    ],
